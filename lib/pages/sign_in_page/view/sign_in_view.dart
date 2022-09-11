@@ -10,6 +10,7 @@ class SignIn extends StatelessWidget {
   SignIn({Key? key}) : super(key: key);
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordCheckController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,8 @@ class SignIn extends StatelessWidget {
                   SizedBox(height: context.dynamicHeight(0.03)),
                   CustomTextField(controller: _passwordController, hintText: 'Password'),
                   SizedBox(height: context.dynamicHeight(0.03)),
+                  CustomTextField(controller: _passwordCheckController, hintText: 'Password'),
+                  SizedBox(height: context.dynamicHeight(0.03)),
                   CustomElevatedButton(
                       text: 'Sign In',
                       height: 40,
@@ -58,7 +61,6 @@ class SignIn extends StatelessWidget {
                       onTap: () {},
                       mainAxisAlignment: MainAxisAlignment.center),
                   SizedBox(height: context.dynamicHeight(0.03)),
-                  const SizedBox(height: 40),
                 ]),
           ),
         ),
