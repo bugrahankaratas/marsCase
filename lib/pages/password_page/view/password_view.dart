@@ -14,6 +14,7 @@ class PasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown[100],
       body: Center(
         child: CustomContainer(
           crossAxisAlignment: CrossAxisAlignment.center,
