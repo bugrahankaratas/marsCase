@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
 class CustomContainer extends StatelessWidget {
-  const CustomContainer({Key? key, required this.children, this.crossAxisAlignment, this.mainAxisAlignment})
+  const CustomContainer(
+      {Key? key, required this.children, this.crossAxisAlignment, this.mainAxisAlignment, this.width, this.height})
       : super(key: key);
   final List<Widget> children;
   final CrossAxisAlignment? crossAxisAlignment;
   final MainAxisAlignment? mainAxisAlignment;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.dynamicHeight(0.4),
-      width: context.dynamicWidth(0.8),
+      height: context.dynamicHeight(height ?? 0.4),
+      width: context.dynamicWidth(width ?? 0.8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.brown,

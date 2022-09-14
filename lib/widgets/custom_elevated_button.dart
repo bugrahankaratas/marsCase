@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
@@ -31,7 +32,14 @@ class CustomElevatedButton extends StatelessWidget {
         width: width,
         child: Row(
           mainAxisAlignment: mainAxisAlignment,
-          children: [leftIcon ?? const SizedBox(), Text(text), rightIcon ?? const SizedBox()],
+          children: [
+            leftIcon ?? const SizedBox(),
+            Text(
+              text,
+              style: context.textTheme.headline2?.copyWith(fontSize: 20, color: Colors.brown),
+            ),
+            rightIcon ?? const SizedBox()
+          ],
         ),
       ),
     );
