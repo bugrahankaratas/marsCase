@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:mars_case/pages/add_notes_page/viewmodel/add_notes_viewmodel.dart';
 
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_container.dart';
@@ -8,8 +9,7 @@ import '../../../widgets/custom_textfield.dart';
 
 class AddNotesView extends StatelessWidget {
   AddNotesView({Key? key}) : super(key: key);
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  final _viewModel = AddNotesViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,29 @@ class AddNotesView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(height: context.dynamicHeight(.05)),
-        _textfieldMethod('Başlık Giriniz', titleController, 50, 200),
+        _textfieldMethod('Başlık Giriniz', _viewModel.titleController, 50, 200),
         SizedBox(height: context.dynamicHeight(0.05)),
-        _textfieldMethod('Açıklama', titleController, context.dynamicHeight(0.3), context.dynamicHeight(.7)),
-        SizedBox(height: context.dynamicHeight(0.1)),
+        _textfieldMethod(
+            'Açıklama', _viewModel.descriptionController, context.dynamicHeight(0.3), context.dynamicHeight(.7)),
+        SizedBox(height: context.dynamicHeight(0.05)),
+        Row(
+          children: [
+            const SizedBox(
+              height: 20,
+              width: 20,
+              child: Placeholder(),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.add),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.camera),
+            ),
+          ],
+        ),
+        SizedBox(height: context.dynamicHeight(0.03)),
         _saveButton(context)
       ],
     );
@@ -66,7 +85,9 @@ class AddNotesView extends StatelessWidget {
         text: 'Kaydet',
         height: context.dynamicHeight(0.05),
         width: context.dynamicWidth(0.7),
-        onTap: () {},
+        onTap: () {
+          _viewModel.add();
+        },
         mainAxisAlignment: MainAxisAlignment.center);
   }
 }
