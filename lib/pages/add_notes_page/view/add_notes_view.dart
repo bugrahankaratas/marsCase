@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:mars_case/helper/statefull_wrapper.dart';
 import 'package:mars_case/pages/add_notes_page/viewmodel/add_notes_viewmodel.dart';
+import 'package:mars_case/service/model/user_model.dart';
 
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_container.dart';
@@ -8,16 +10,24 @@ import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_textfield.dart';
 
 class AddNotesView extends StatelessWidget {
-  AddNotesView({Key? key}) : super(key: key);
+  AddNotesView({Key? key, this.note, this.index}) : super(key: key);
+  final Notes? note;
+  final int? index;
   final _viewModel = AddNotesViewModel();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(title: 'Add Notes'),
-      body: Center(
-        child: SingleChildScrollView(
-          child: _containerMethod(context),
+    return StatefulWrapper(
+      onInit: () {
+        _viewModel.fillFields(note);
+        _viewModel.setContext(context);
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(title: note == null ? 'Not Ekle' : 'Güncelle'),
+        body: Center(
+          child: SingleChildScrollView(
+            child: _containerMethod(context),
+          ),
         ),
       ),
     );
@@ -33,26 +43,8 @@ class AddNotesView extends StatelessWidget {
         _textfieldMethod('Başlık Giriniz', _viewModel.titleController, 50, 200),
         SizedBox(height: context.dynamicHeight(0.05)),
         _textfieldMethod(
-            'Açıklama', _viewModel.descriptionController, context.dynamicHeight(0.3), context.dynamicHeight(.7)),
+            'Açıklama', _viewModel.descriptionController, context.dynamicHeight(0.35), context.dynamicHeight(.8)),
         SizedBox(height: context.dynamicHeight(0.05)),
-        Row(
-          children: [
-            const SizedBox(
-              height: 20,
-              width: 20,
-              child: Placeholder(),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.add),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.camera),
-            ),
-          ],
-        ),
-        SizedBox(height: context.dynamicHeight(0.03)),
         _saveButton(context)
       ],
     );
@@ -71,6 +63,7 @@ class AddNotesView extends StatelessWidget {
         height: height,
         width: width,
         child: CustomTextField(
+          maxLines: 20,
           border: InputBorder.none,
           prefixIcon: const SizedBox(),
           hintText: hintText,
@@ -82,11 +75,11 @@ class AddNotesView extends StatelessWidget {
 
   CustomElevatedButton _saveButton(BuildContext context) {
     return CustomElevatedButton(
-        text: 'Kaydet',
+        text: note == null ? 'Kaydet' : 'Güncelle',
         height: context.dynamicHeight(0.05),
         width: context.dynamicWidth(0.7),
-        onTap: () {
-          _viewModel.add();
+        onTap: () async {
+          note == null ? await _viewModel.add() : await _viewModel.update(index);
         },
         mainAxisAlignment: MainAxisAlignment.center);
   }

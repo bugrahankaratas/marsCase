@@ -13,6 +13,8 @@ class Service {
 
   String userId() => _auth.currentUser?.uid ?? '';
 
+  String userMail() => _auth.currentUser?.email ?? '';
+
   Future<List<Notes>?> fetchNoteList() async {
     final userRef = collectionReference.doc(userId());
     var userData = await userRef.get(); // fetching user data
@@ -41,9 +43,14 @@ class Service {
     await updateNotes(noteList);
   }
 
+  Future<void> deleteDocument(int index) async {
+    final noteList = await fetchNoteList();
+    noteList?.removeAt(index);
+    await updateNotes(noteList);
+  }
+
   Future<void> updateNotes(List<Notes>? noteList) async {
     List<Map<String, dynamic>> tempNotes = [];
-
     noteList?.forEach((element) {
       tempNotes.add({
         'title': element.title,
@@ -51,6 +58,11 @@ class Service {
         'date': element.date,
       });
     });
+
     await collectionReference.doc(userId()).update({'notes': tempNotes});
+  }
+
+  Future deleteAll() async {
+    await updateNotes([]);
   }
 }

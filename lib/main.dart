@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mars_case/pages/login_page/view/login_view.dart';
+import 'package:mars_case/pages/splash_page/view/splash_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Colors.brown[200]),
       title: 'Material App',
-      home: LoginView(),
+      home: const SplashView(),
     );
   }
 }

@@ -9,7 +9,9 @@ class CustomTextField extends StatelessWidget {
       this.expands,
       this.textAlign,
       this.prefixIcon,
-      this.border})
+      this.border,
+      this.maxLines,
+      this.obscureText})
       : super(key: key);
   final TextEditingController controller;
   final String hintText;
@@ -17,10 +19,14 @@ class CustomTextField extends StatelessWidget {
   final TextAlign? textAlign;
   final Widget? prefixIcon;
   final InputBorder? border;
+  final int? maxLines;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+        obscureText: obscureText ?? false,
+        maxLines: maxLines ?? 1,
         textAlign: textAlign ?? TextAlign.start,
         // expands: expands ?? false,
         controller: controller,

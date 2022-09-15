@@ -41,8 +41,35 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
     });
   }
 
+  late final _$saveMailAsyncAction =
+      AsyncAction('_LoginViewModelBase.saveMail', context: context);
+
+  @override
+  Future saveMail() {
+    return _$saveMailAsyncAction.run(() => super.saveMail());
+  }
+
+  late final _$readMailAsyncAction =
+      AsyncAction('_LoginViewModelBase.readMail', context: context);
+
+  @override
+  Future readMail() {
+    return _$readMailAsyncAction.run(() => super.readMail());
+  }
+
   late final _$_LoginViewModelBaseActionController =
       ActionController(name: '_LoginViewModelBase', context: context);
+
+  @override
+  dynamic allListener() {
+    final _$actionInfo = _$_LoginViewModelBaseActionController.startAction(
+        name: '_LoginViewModelBase.allListener');
+    try {
+      return super.allListener();
+    } finally {
+      _$_LoginViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic emailControllerListener() {

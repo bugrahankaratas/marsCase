@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mars_case/helper/loading_manager/loading_manager.dart';
 import 'package:mars_case/helper/snackbar.dart';
 import 'package:mars_case/pages/menu_page/view/menu_view.dart';
 import 'package:mars_case/service/firebase_auth.dart';
+import 'package:mars_case/service/service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'register_viewmodel.g.dart';
@@ -44,14 +46,16 @@ abstract class _RegisterViewModelBase with Store {
     passwordCheckController = passwordCheckController;
   }
 
-  // createUser() async{
-  //   final user = await _auth.createUser(emailController.text, passwordCheckController.text, _context);
-
-  // }
-
   succesAndNavigate() async {
     ShowSnackBar.showSuccessSnackBar(_context, 'Kayıt Başarılı');
-    await Navigator.of(_context).push(MaterialPageRoute(builder: (context) => MenuView()));
+    await LoadingManager.instance.showLoading(_context);
+
+    await Navigator.of(_context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => MenuView()),
+      (route) => false,
+    );
+
+    await LoadingManager.instance.hideLoading(_context);
   }
 
   createUser() async {
@@ -61,10 +65,7 @@ abstract class _RegisterViewModelBase with Store {
       ShowSnackBar.showErrorSnackBar(_context, 'Şifreler Eşleştirilemiyor.');
     } else {
       await _auth.createUser(emailController.text, passwordController.text, _context);
-
-      // ShowSnackBar.showSuccessSnackBar(_context, 'Kayıt Başarılı');
-
-      // await Navigator.of(_context).push(MaterialPageRoute(builder: (context) => const MenuView()));
+      Service.instance.userId().isNotEmpty ? succesAndNavigate() : null;
     }
   }
 }

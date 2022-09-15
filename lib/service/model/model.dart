@@ -1,17 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class Todo {
-  String id;
-  String title;
-  String doc;
+part 'model.g.dart';
 
-  Todo({required this.id, required this.title, required this.doc});
+@JsonSerializable()
+class Email {
+  String email;
 
-  factory Todo.fromSnapshot(DocumentSnapshot snapshot) {
-    return Todo(
-      id: snapshot.id,
-      title: snapshot["title"],
-      doc: snapshot["doc"],
-    );
-  }
+  Email({
+    required this.email,
+  });
+
+  factory Email.fromJson(Map<String, dynamic> json) => _$EmailFromJson(json);
 }

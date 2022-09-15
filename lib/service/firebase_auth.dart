@@ -5,6 +5,11 @@ import 'package:flutter/cupertino.dart';
 import '../helper/snackbar.dart';
 
 class FBAuth {
+  static FBAuth? _instance;
+  static FBAuth get instance {
+    return _instance ??= FBAuth();
+  }
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late BuildContext _context;
@@ -36,8 +41,6 @@ class FBAuth {
     }
     return null;
   }
-
-  currentUser() {}
 
   signOut() async {
     return await auth.signOut();

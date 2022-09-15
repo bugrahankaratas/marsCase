@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:mars_case/pages/menu_page/view/menu_view.dart';
 import 'package:mars_case/service/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../helper/snackbar.dart';
-import '../../menu_page/view/menu_view.dart';
 part 'login_viewmodel.g.dart';
 
 class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
@@ -23,6 +24,20 @@ abstract class _LoginViewModelBase with Store {
     _context = context;
   }
 
+  @action
+  saveMail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('email', emailController.text.toString());
+  }
+
+  @action
+  readMail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var email = preferences.getString('email');
+    return email;
+  }
+
+  @action
   allListener() {
     emailControllerListener();
     passwordControllerListener();
@@ -38,9 +53,14 @@ abstract class _LoginViewModelBase with Store {
     passwordController = passwordController;
   }
 
-  succesAndNavigate() {
+  succesAndNavigate() async {
     ShowSnackBar.showSuccessSnackBar(_context, 'Giriş Başarılı');
-    Navigator.of(_context).push(MaterialPageRoute(builder: (context) => MenuView()));
+
+    ///1111
+    Navigator.of(_context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => MenuView()),
+      (route) => false,
+    );
   }
 
   fillBlanks() async {
