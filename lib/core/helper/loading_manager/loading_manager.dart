@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/custom_progresindicator.dart';
+import '../../../widgets/custom_progresindicator.dart';
 
 class LoadingManager {
   static LoadingManager? _instance;

@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mars_case/helper/statefull_wrapper.dart';
 import 'package:mars_case/pages/login_page/view/login_view.dart';
 import 'package:mars_case/pages/password_page/view/password_view.dart';
+
+import '../../../core/helper/statefull_wrapper.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({Key? key}) : super(key: key);

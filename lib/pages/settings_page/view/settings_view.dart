@@ -1,51 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:mars_case/helper/loading_manager/loading_manager.dart';
-import 'package:mars_case/pages/login_page/view/login_view.dart';
-import 'package:mars_case/service/firebase_auth.dart';
-import 'package:mars_case/service/service.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mars_case/pages/settings_page/viewmodel/settings_viewmdel.dart';
 import 'package:mars_case/widgets/custom_appbar.dart';
 import 'package:mars_case/widgets/custom_container.dart';
 import 'package:mars_case/widgets/custom_elevated_button.dart';
 
-import '../../menu_page/view/menu_view.dart';
+import '../../../core/constant/text_constant.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key? key}) : super(key: key);
+  SettingsView({Key? key}) : super(key: key);
+
+  final _viewModel = SettingsViewModel();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Ayarlar'),
-      body: Center(
-          child: CustomContainer(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        CustomElevatedButton(
-            text: 'Tüm Notları Sil',
-            height: 50,
-            width: 200,
-            onTap: () async {
-              await LoadingManager.instance.showLoading(context);
-              await Service.instance.deleteAll();
-              await LoadingManager.instance.hideLoading(context);
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => MenuView()),
-                (route) => false,
-              );
-            },
-            mainAxisAlignment: MainAxisAlignment.center),
-        const SizedBox(height: 50),
-        CustomElevatedButton(
-            text: 'Oturum Kapat',
-            height: 50,
-            width: 200,
-            onTap: () {
-              FBAuth.instance.signOut();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => LoginView()),
-                (route) => false,
-              );
-            },
-            mainAxisAlignment: MainAxisAlignment.center)
-      ])),
+      appBar: CustomAppBar(title: Constants.get.textConstant.settings),
+      body: _customContainer(context),
     );
+  }
+
+  Center _customContainer(BuildContext context) {
+    return Center(child: Observer(builder: (_) {
+      return CustomContainer(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        _allNotesDeleteButton(context),
+        const SizedBox(height: 50),
+        _signOutButton(context),
+      ]);
+    }));
+  }
+
+  CustomElevatedButton _allNotesDeleteButton(BuildContext context) {
+    return CustomElevatedButton(
+        text: Constants.get.textConstant.deleteAllNotes,
+        height: 50,
+        width: 200,
+        onTap: () async {
+          await _viewModel.allNotesDelete(context);
+        },
+        mainAxisAlignment: MainAxisAlignment.center);
+  }
+
+  CustomElevatedButton _signOutButton(BuildContext context) {
+    return CustomElevatedButton(
+        text: Constants.get.textConstant.signOut,
+        height: 50,
+        width: 200,
+        onTap: () async {
+          await _viewModel.settingSignOut(context);
+        },
+        mainAxisAlignment: MainAxisAlignment.center);
   }
 }

@@ -42,6 +42,22 @@ mixin _$AddNotesViewModel on _AddNotesViewModelBase, Store {
     });
   }
 
+  late final _$setContextAsyncAction =
+      AsyncAction('_AddNotesViewModelBase.setContext', context: context);
+
+  @override
+  Future<void> setContext(BuildContext context) {
+    return _$setContextAsyncAction.run(() => super.setContext(context));
+  }
+
+  late final _$fillFieldsAsyncAction =
+      AsyncAction('_AddNotesViewModelBase.fillFields', context: context);
+
+  @override
+  Future fillFields(Notes? note) {
+    return _$fillFieldsAsyncAction.run(() => super.fillFields(note));
+  }
+
   late final _$_AddNotesViewModelBaseActionController =
       ActionController(name: '_AddNotesViewModelBase', context: context);
 

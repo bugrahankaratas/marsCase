@@ -2,14 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mars_case/helper/statefull_wrapper.dart';
-import 'package:mars_case/widgets/custom_container.dart';
-import 'package:mars_case/widgets/custom_elevated_button.dart';
-import 'package:mars_case/widgets/custom_textfield.dart';
 
 import 'package:kartal/kartal.dart';
 
+import '../../../core/constant/text_constant.dart';
+import '../../../core/helper/statefull_wrapper.dart';
 import '../../../service/service.dart';
+import '../../../widgets/custom_container.dart';
+import '../../../widgets/custom_elevated_button.dart';
+import '../../../widgets/custom_textfield.dart';
 import '../viewmodel/password_viewmodel.dart';
 
 class PasswordView extends StatelessWidget {
@@ -41,10 +42,13 @@ class PasswordView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _fixSizedBox(context),
-        Text('Lütfen Şifrenizi Giriniz',
+        Text(Constants.get.textConstant.password,
             style: context.textTheme.headline2?.copyWith(fontSize: 25, color: Colors.white)),
         _fixSizedBox(context),
-        CustomTextField(obscureText: true, controller: _viewModel.passwordController, hintText: 'Şifre'),
+        CustomTextField(
+            obscureText: true,
+            controller: _viewModel.passwordController,
+            hintText: Constants.get.textConstant.password),
         _fixSizedBox(context),
         _loginButton(context),
       ],
@@ -55,7 +59,7 @@ class PasswordView extends StatelessWidget {
 
   CustomElevatedButton _loginButton(BuildContext context) {
     return CustomElevatedButton(
-        text: 'Login',
+        text: Constants.get.textConstant.login,
         height: context.dynamicHeight(0.05),
         width: context.dynamicWidth(0.7),
         onTap: () {

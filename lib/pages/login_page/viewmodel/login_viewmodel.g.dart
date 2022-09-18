@@ -41,20 +41,12 @@ mixin _$LoginViewModel on _LoginViewModelBase, Store {
     });
   }
 
-  late final _$saveMailAsyncAction =
-      AsyncAction('_LoginViewModelBase.saveMail', context: context);
+  late final _$loginButtonAsyncAction =
+      AsyncAction('_LoginViewModelBase.loginButton', context: context);
 
   @override
-  Future saveMail() {
-    return _$saveMailAsyncAction.run(() => super.saveMail());
-  }
-
-  late final _$readMailAsyncAction =
-      AsyncAction('_LoginViewModelBase.readMail', context: context);
-
-  @override
-  Future readMail() {
-    return _$readMailAsyncAction.run(() => super.readMail());
+  Future<dynamic> loginButton(BuildContext context) {
+    return _$loginButtonAsyncAction.run(() => super.loginButton(context));
   }
 
   late final _$_LoginViewModelBaseActionController =

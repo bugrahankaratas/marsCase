@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mars_case/helper/loading_manager/loading_manager.dart';
-import 'package:mars_case/helper/statefull_wrapper.dart';
-import 'package:mars_case/pages/add_notes_page/view/add_notes_view.dart';
-import 'package:mars_case/pages/menu_page/viewmodel/menu_view_model.dart';
-import 'package:mars_case/pages/settings_page/view/settings_view.dart';
-import 'package:mars_case/service/model/user_model.dart';
-import 'package:mars_case/service/service.dart';
-import 'package:mars_case/widgets/custom_appbar.dart';
+
 import 'package:kartal/kartal.dart';
+import 'package:mars_case/core/constant/text_constant.dart';
+
+import '../../../core/helper/statefull_wrapper.dart';
+import '../../../service/model/user_model.dart';
+import '../../../widgets/custom_appbar.dart';
+import '../../add_notes_page/view/add_notes_view.dart';
+import '../../settings_page/view/settings_view.dart';
+import '../viewmodel/menu_view_model.dart';
 
 class MenuView extends StatelessWidget {
   MenuView({Key? key}) : super(key: key);
@@ -39,9 +40,7 @@ class MenuView extends StatelessWidget {
                 return Dismissible(
                   key: Key(index.toString()),
                   onDismissed: (DismissDirection dissmissDirection) async {
-                    await LoadingManager.instance.showLoading(context);
-                    await Service.instance.deleteDocument(index);
-                    await LoadingManager.instance.hideLoading(context);
+                    _viewModel.deleteNotes(context, index);
                   },
                   child: _inkwellCard(context, index, note),
                 );
@@ -53,11 +52,11 @@ class MenuView extends StatelessWidget {
 
   CustomAppBar _customappbar(BuildContext context) {
     return CustomAppBar(
-      title: 'Notlarım',
+      title: Constants.get.textConstant.menuPage,
       actions: [
         IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsView()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsView()));
             },
             icon: const Icon(Icons.settings))
       ],

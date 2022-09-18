@@ -33,6 +33,15 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     return _$fethNoteListAsyncAction.run(() => super.fethNoteList());
   }
 
+  late final _$deleteNotesAsyncAction =
+      AsyncAction('_MenuViewModelBase.deleteNotes', context: context);
+
+  @override
+  Future<dynamic> deleteNotes(BuildContext context, int index) {
+    return _$deleteNotesAsyncAction
+        .run(() => super.deleteNotes(context, index));
+  }
+
   @override
   String toString() {
     return '''

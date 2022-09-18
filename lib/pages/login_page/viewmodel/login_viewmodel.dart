@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:mars_case/pages/menu_page/view/menu_view.dart';
 import 'package:mars_case/service/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../helper/snackbar.dart';
+import '../../../core/constant/text_constant.dart';
+import '../../../core/helper/loading_manager/loading_manager.dart';
+import '../../../core/helper/snackbar.dart';
 part 'login_viewmodel.g.dart';
 
 class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
@@ -25,19 +26,6 @@ abstract class _LoginViewModelBase with Store {
   }
 
   @action
-  saveMail() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('email', emailController.text.toString());
-  }
-
-  @action
-  readMail() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var email = preferences.getString('email');
-    return email;
-  }
-
-  @action
   allListener() {
     emailControllerListener();
     passwordControllerListener();
@@ -53,19 +41,26 @@ abstract class _LoginViewModelBase with Store {
     passwordController = passwordController;
   }
 
-  succesAndNavigate() async {
-    ShowSnackBar.showSuccessSnackBar(_context, 'Giriş Başarılı');
+  Future succesAndNavigate() async {
+    ShowSnackBar.showSuccessSnackBar(_context, Constants.get.textConstant.succes);
 
-    ///1111
-    Navigator.of(_context).pushAndRemoveUntil(
+    await Navigator.of(_context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => MenuView()),
       (route) => false,
     );
   }
 
-  fillBlanks() async {
+  @action
+  Future loginButton(BuildContext context) async {
+    await LoadingManager.instance.showLoading(context);
+    await allListener();
+    await fillBlanks();
+    await LoadingManager.instance.hideLoading(context);
+  }
+
+  Future fillBlanks() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      ShowSnackBar.showErrorSnackBar(_context, 'Lütfen tüm boşlukları doldurunuz.');
+      ShowSnackBar.showErrorSnackBar(_context, Constants.get.textConstant.allEmpty);
     } else {
       final user = await _auth.signIn(emailController.text, passwordController.text, _context);
 

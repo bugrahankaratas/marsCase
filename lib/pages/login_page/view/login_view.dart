@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
-import 'package:mars_case/helper/statefull_wrapper.dart';
+import 'package:mars_case/core/constant/text_constant.dart';
 import 'package:mars_case/pages/login_page/viewmodel/login_viewmodel.dart';
 import 'package:mars_case/pages/register_page/view/register_view.dart';
 import 'package:mars_case/service/service.dart';
@@ -11,6 +11,7 @@ import 'package:mars_case/widgets/custom_container.dart';
 import 'package:mars_case/widgets/custom_elevated_button.dart';
 import 'package:mars_case/widgets/custom_textfield.dart';
 
+import '../../../core/helper/statefull_wrapper.dart';
 import '../../../widgets/custom_appbar.dart';
 
 class LoginView extends StatelessWidget {
@@ -32,7 +33,7 @@ class LoginView extends StatelessWidget {
       },
       child: Observer(builder: (_) {
         return Scaffold(
-          appBar: CustomAppBar(title: 'Üye Giriş'),
+          appBar: CustomAppBar(title: Constants.get.textConstant.loginPage),
           body: _body(context),
         );
       }),
@@ -42,9 +43,12 @@ class LoginView extends StatelessWidget {
   Center _body(BuildContext context) {
     return Center(
       child: CustomContainer(children: [
-        CustomTextField(controller: _viewModel.emailController, hintText: 'E-Mail'),
+        CustomTextField(controller: _viewModel.emailController, hintText: Constants.get.textConstant.email),
         _fixSizedBox(context),
-        CustomTextField(obscureText: true, controller: _viewModel.passwordController, hintText: 'Şifrenizi giriniz'),
+        CustomTextField(
+            obscureText: true,
+            controller: _viewModel.passwordController,
+            hintText: Constants.get.textConstant.password),
         _fixSizedBox(context),
         _loginButton(context),
         _fixSizedBox(context),
@@ -57,12 +61,11 @@ class LoginView extends StatelessWidget {
 
   CustomElevatedButton _loginButton(BuildContext context) {
     return CustomElevatedButton(
-        text: 'Giriş',
+        text: Constants.get.textConstant.login,
         height: 40,
         width: 80,
         onTap: () {
-          _viewModel.allListener();
-          _viewModel.fillBlanks();
+          _viewModel.loginButton(context);
           log(Service.instance.userMail());
         },
         mainAxisAlignment: MainAxisAlignment.center);
@@ -70,7 +73,7 @@ class LoginView extends StatelessWidget {
 
   CustomElevatedButton _signInButton(BuildContext context) {
     return CustomElevatedButton(
-        text: 'Kayıt Ol',
+        text: Constants.get.textConstant.register,
         height: 40,
         width: 300,
         onTap: () {

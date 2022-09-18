@@ -62,6 +62,17 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
       ActionController(name: '_RegisterViewModelBase', context: context);
 
   @override
+  dynamic allListeners() {
+    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
+        name: '_RegisterViewModelBase.allListeners');
+    try {
+      return super.allListeners();
+    } finally {
+      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic emailControllerListener() {
     final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
         name: '_RegisterViewModelBase.emailControllerListener');

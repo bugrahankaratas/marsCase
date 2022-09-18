@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
-import 'package:mars_case/pages/menu_page/view/menu_view.dart';
-import 'package:mars_case/service/firebase_auth.dart';
+import 'package:mars_case/core/constant/text_constant.dart';
 
-import '../../../helper/statefull_wrapper.dart';
+import '../../../core/helper/statefull_wrapper.dart';
+import '../../../service/firebase_auth.dart';
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_container.dart';
 import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_textfield.dart';
+import '../../menu_page/view/menu_view.dart';
 import '../viewmodel/register_viewmodel.dart';
 
 class RegisterView extends StatelessWidget {
@@ -30,7 +31,7 @@ class RegisterView extends StatelessWidget {
     }, child: Observer(builder: (_) {
       return Scaffold(
         appBar: CustomAppBar(
-            title: 'Üye Kayıt',
+            title: Constants.get.textConstant.registerPage,
             leading: IconButton(
               onPressed: () {
                 Navigator.pop(
@@ -42,15 +43,20 @@ class RegisterView extends StatelessWidget {
             )),
         body: Center(
             child: CustomContainer(children: [
-          CustomTextField(controller: _viewModel.emailController, hintText: 'E-Mail'),
-          SizedBox(height: context.dynamicHeight(0.03)),
-          CustomTextField(obscureText: true, controller: _viewModel.passwordController, hintText: 'Şifrenizi giriniz'),
+          CustomTextField(controller: _viewModel.emailController, hintText: Constants.get.textConstant.email),
           SizedBox(height: context.dynamicHeight(0.03)),
           CustomTextField(
-              obscureText: true, controller: _viewModel.passwordCheckController, hintText: 'Şifrenizi tekrar giriniz'),
+              obscureText: true,
+              controller: _viewModel.passwordController,
+              hintText: Constants.get.textConstant.password),
+          SizedBox(height: context.dynamicHeight(0.03)),
+          CustomTextField(
+              obscureText: true,
+              controller: _viewModel.passwordCheckController,
+              hintText: Constants.get.textConstant.password),
           SizedBox(height: context.dynamicHeight(0.03)),
           CustomElevatedButton(
-              text: 'Kaydol',
+              text: Constants.get.textConstant.register,
               height: 40,
               width: 80,
               onTap: () {
