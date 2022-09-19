@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:mobx/mobx.dart';
 
+import '../../../core/constant/navigation_constant.dart';
 import '../../../core/constant/text_constant.dart';
 import '../../../core/helper/loading_manager/loading_manager.dart';
 import '../../../core/helper/snackbar.dart';
 import '../../../service/firebase_auth.dart';
 import '../../../service/service.dart';
-import '../../menu_page/view/menu_view.dart';
+import '../../../utils/navigation_manager/navigation_manager.dart';
 
 part 'register_viewmodel.g.dart';
 
@@ -52,10 +53,7 @@ abstract class _RegisterViewModelBase with Store {
 
   Future succesAndNavigate() async {
     ShowSnackBar.showSuccessSnackBar(_context, Constants.get.textConstant.succes);
-    await Navigator.of(_context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => MenuView()),
-      (route) => false,
-    );
+    await NavigationManager.instance.navigateToPageClear(path: NavConstant.menuView);
   }
 
   createUser() async {

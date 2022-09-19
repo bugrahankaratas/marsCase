@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mars_case/pages/splash_page/view/splash_view.dart';
+import 'package:mars_case/utils/navigation_manager/navigation_manager.dart';
+import 'package:mars_case/utils/navigation_manager/navigation_route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(scaffoldBackgroundColor: Colors.brown[200]),
-      title: 'Material App',
+      title: 'MARS Study Case',
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      navigatorKey: NavigationManager.instance.navigatorKey,
       home: const SplashView(),
     );
   }

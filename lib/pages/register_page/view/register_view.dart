@@ -5,11 +5,11 @@ import 'package:mars_case/core/constant/text_constant.dart';
 
 import '../../../core/helper/statefull_wrapper.dart';
 import '../../../service/firebase_auth.dart';
+import '../../../utils/navigation_manager/navigation_manager.dart';
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_container.dart';
 import '../../../widgets/custom_elevated_button.dart';
 import '../../../widgets/custom_textfield.dart';
-import '../../menu_page/view/menu_view.dart';
 import '../viewmodel/register_viewmodel.dart';
 
 class RegisterView extends StatelessWidget {
@@ -34,10 +34,7 @@ class RegisterView extends StatelessWidget {
             title: Constants.get.textConstant.registerPage,
             leading: IconButton(
               onPressed: () {
-                Navigator.pop(
-                  context,
-                  MaterialPageRoute(builder: (context) => MenuView()),
-                );
+                NavigationManager.instance.navigatePop();
               },
               icon: const Icon(Icons.chevron_left, color: Colors.white),
             )),

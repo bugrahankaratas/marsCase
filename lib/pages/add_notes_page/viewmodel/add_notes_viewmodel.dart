@@ -3,8 +3,10 @@ import 'package:mars_case/service/model/user_model.dart';
 import 'package:mars_case/service/service.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../core/constant/navigation_constant.dart';
 import '../../../core/constant/text_constant.dart';
 import '../../../core/helper/snackbar.dart';
+import '../../../utils/navigation_manager/navigation_manager.dart';
 import '../../menu_page/view/menu_view.dart';
 part 'add_notes_viewmodel.g.dart';
 
@@ -48,10 +50,7 @@ abstract class _AddNotesViewModelBase with Store {
       await Service.instance.addDocument(titleController.text, descriptionController.text);
       ShowSnackBar.showSuccessSnackBar(_context, Constants.get.textConstant.savedNotes);
 
-      await Navigator.of(_context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MenuView()),
-        (route) => false,
-      );
+      await NavigationManager.instance.navigateToPageClear(path: NavConstant.menuView);
     }
   }
 

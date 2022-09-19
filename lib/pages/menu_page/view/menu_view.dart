@@ -4,11 +4,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mars_case/core/constant/text_constant.dart';
 
+import '../../../core/constant/navigation_constant.dart';
 import '../../../core/helper/statefull_wrapper.dart';
 import '../../../service/model/user_model.dart';
+import '../../../utils/navigation_manager/navigation_manager.dart';
 import '../../../widgets/custom_appbar.dart';
 import '../../add_notes_page/view/add_notes_view.dart';
-import '../../settings_page/view/settings_view.dart';
 import '../viewmodel/menu_view_model.dart';
 
 class MenuView extends StatelessWidget {
@@ -26,7 +27,7 @@ class MenuView extends StatelessWidget {
           backgroundColor: Colors.brown[400],
           onPressed: () async {
             // await FirebaseAuth.instance.signOut();
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddNotesView()));
+            NavigationManager.instance.navigateToPage(path: NavConstant.addNotesView);
           },
           child: const Icon(Icons.add),
         ),
@@ -56,7 +57,7 @@ class MenuView extends StatelessWidget {
       actions: [
         IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsView()));
+              NavigationManager.instance.navigateToPage(path: NavConstant.settingsView);
             },
             icon: const Icon(Icons.settings))
       ],

@@ -1,13 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:mars_case/pages/menu_page/view/menu_view.dart';
 import 'package:mars_case/service/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../core/constant/navigation_constant.dart';
 import '../../../core/constant/text_constant.dart';
 import '../../../core/helper/loading_manager/loading_manager.dart';
 import '../../../core/helper/snackbar.dart';
+import '../../../utils/navigation_manager/navigation_manager.dart';
 part 'login_viewmodel.g.dart';
 
 class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
@@ -44,10 +45,7 @@ abstract class _LoginViewModelBase with Store {
   Future succesAndNavigate() async {
     ShowSnackBar.showSuccessSnackBar(_context, Constants.get.textConstant.succes);
 
-    await Navigator.of(_context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => MenuView()),
-      (route) => false,
-    );
+    await NavigationManager.instance.navigateToPageClear(path: NavConstant.menuView);
   }
 
   @action
