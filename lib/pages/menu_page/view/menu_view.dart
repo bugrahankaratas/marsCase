@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:kartal/kartal.dart';
 import 'package:mars_case/core/constant/text_constant.dart';
+import 'package:mars_case/utils/theme/colors.dart';
 
 import '../../../core/constant/navigation_constant.dart';
 import '../../../core/helper/statefull_wrapper.dart';
@@ -24,7 +25,6 @@ class MenuView extends StatelessWidget {
       },
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.brown[400],
           onPressed: () async {
             // await FirebaseAuth.instance.signOut();
             NavigationManager.instance.navigateToPage(path: NavConstant.addNotesView);
@@ -72,7 +72,7 @@ class MenuView extends StatelessWidget {
       },
       child: Card(
         child: ListTile(
-          tileColor: Colors.brown[100],
+          tileColor: AppColors.appColor.brown100,
           leading: Container(
             color: Colors.black,
             height: context.dynamicHeight(0.2),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:mars_case/utils/theme/colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
@@ -24,10 +25,10 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      splashColor: Colors.brown.withOpacity(0.5),
+      splashColor: AppColors.appColor.brown.withOpacity(0.5),
       child: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.appColor.white),
         height: height,
         width: width,
         child: Row(
@@ -36,7 +37,7 @@ class CustomElevatedButton extends StatelessWidget {
             leftIcon ?? const SizedBox(),
             Text(
               text,
-              style: context.textTheme.headline2?.copyWith(fontSize: 20, color: Colors.brown),
+              style: context.textTheme.headline2?.copyWith(fontSize: 20, color: AppColors.appColor.brown),
             ),
             rightIcon ?? const SizedBox()
           ],

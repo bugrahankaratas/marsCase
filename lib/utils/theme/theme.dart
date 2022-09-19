@@ -1,11 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:mars_case/utils/theme/colors.dart';
 
-// import 'package:flutter/material.dart';
+class Theme {
+  late final ThemeData theme;
 
-// class Theme {
-//   late final ThemeData theme;
-
-// Theme(){
-//   theme = ThemeData(appBarTheme: AppBarTheme() )
-// }
-
-// }
+  Theme() {
+    theme = ThemeData(
+      appBarTheme: AppBarTheme(
+        color: AppColors.appColor.transparent,
+      ),
+      scaffoldBackgroundColor: AppColors.appColor.brown200,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: AppColors.appColor.brown400),
+      buttonTheme: ButtonThemeData(
+        colorScheme: ColorScheme.light(onPrimary: AppColors.appColor.white),
+      ),
+    );
+  }
+}
