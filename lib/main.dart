@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mars_case/pages/splash_page/view/splash_view.dart';
 import 'package:mars_case/utils/navigation_manager/navigation_manager.dart';
 import 'package:mars_case/utils/navigation_manager/navigation_route.dart';
+import 'package:mars_case/utils/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Colors.brown[200]),
+      theme: ColorTheme().theme,
       title: 'MARS Study Case',
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       navigatorKey: NavigationManager.instance.navigatorKey,

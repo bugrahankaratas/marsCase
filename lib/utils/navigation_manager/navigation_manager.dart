@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'navigation_interface.dart';
+import 'inavigation.dart';
 
-class NavigationManager implements NavigationInterface {
+class NavigationManager implements INavigation {
   static final NavigationManager _instance = NavigationManager._init();
   static NavigationManager get instance => _instance;
 

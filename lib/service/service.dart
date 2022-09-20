@@ -17,17 +17,17 @@ class Service {
 
   Future<List<Notes>?> fetchNoteList() async {
     final userRef = collectionReference.doc(userId());
-    var userData = await userRef.get(); // fetching user data
+    final userData = await userRef.get(); // fetching user data
 
-    var noteList = UserModel.fromJson(userData.data() as Map<String, dynamic>).notes;
+    final noteList = UserModel.fromJson(userData.data() as Map<String, dynamic>).notes;
 
     return noteList;
   }
 
-  Future<void> addDocument(String title, String document) async {
+  Future<void> addDocument(String title, String content) async {
     var noteList = await fetchNoteList();
 
-    var note = Notes(content: document, date: DateTime.now().toString(), title: title);
+    var note = Notes(content: content, date: DateTime.now().toString(), title: title);
 
     noteList?.isNotEmpty ?? false ? noteList?.add(note) : noteList = [note];
 
@@ -49,9 +49,9 @@ class Service {
     await updateNotes(noteList);
   }
 
-  Future<void> updateNotes(List<Notes>? noteList) async {
+  Future<void> updateNotes(List<Notes>? notes) async {
     List<Map<String, dynamic>> tempNotes = [];
-    noteList?.forEach((element) {
+    notes?.forEach((element) {
       tempNotes.add({
         'title': element.title,
         'content': element.content,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mars_case/utils/theme/colors.dart';
 
-class Theme {
+class ColorTheme {
   late final ThemeData theme;
 
-  Theme() {
+  ColorTheme() {
     theme = ThemeData(
       appBarTheme: AppBarTheme(
         color: AppColors.appColor.transparent,

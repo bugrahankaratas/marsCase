@@ -21,6 +21,7 @@ abstract class _MenuViewModelBase with Store {
   Future deleteNotes(BuildContext context, int index) async {
     await LoadingManager.instance.showLoading(context);
     await Service.instance.deleteDocument(index);
+    list?.removeAt(index);
     await LoadingManager.instance.hideLoading(context);
   }
 }
