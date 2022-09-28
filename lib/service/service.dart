@@ -17,7 +17,7 @@ class Service {
 
   Future<List<Notes>?> fetchNoteList() async {
     final userRef = collectionReference.doc(userId());
-    final userData = await userRef.get(); // fetching user data
+    final userData = await userRef.get();
 
     final noteList = UserModel.fromJson(userData.data() as Map<String, dynamic>).notes;
 
@@ -58,7 +58,6 @@ class Service {
         'date': element.date,
       });
     });
-
     await collectionReference.doc(userId()).update({'notes': tempNotes});
   }
 

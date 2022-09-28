@@ -7,7 +7,6 @@ import '../../../core/constant/navigation_constant.dart';
 import '../../../core/constant/text_constant.dart';
 import '../../../core/helper/snackbar.dart';
 import '../../../utils/navigation_manager/navigation_manager.dart';
-import '../../menu_page/view/menu_view.dart';
 part 'add_notes_viewmodel.g.dart';
 
 class AddNotesViewModel = _AddNotesViewModelBase with _$AddNotesViewModel;
@@ -63,10 +62,7 @@ abstract class _AddNotesViewModelBase with Store {
       await Service.instance.updateDocument(index, titleController.text, descriptionController.text);
       ShowSnackBar.showSuccessSnackBar(_context, Constants.get.textConstant.savedNotes);
 
-      await Navigator.of(_context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MenuView()),
-        (route) => false,
-      );
+      await NavigationManager.instance.navigateToPageClear(path: NavConstant.menuView);
     }
   }
 }
