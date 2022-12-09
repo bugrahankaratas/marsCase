@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:kartal/kartal.dart';
+import 'package:mars_case/utils/theme/colors.dart';
 
 import '../../../core/constant/text_constant.dart';
 import '../../../core/helper/statefull_wrapper.dart';
@@ -28,7 +29,7 @@ class PasswordView extends StatelessWidget {
           _viewModel.setContext(context);
         },
         child: Scaffold(
-          backgroundColor: Colors.brown[100],
+          backgroundColor: AppColors.appColor.brown200,
           body: Center(
             child: _customContainer(context),
           ),

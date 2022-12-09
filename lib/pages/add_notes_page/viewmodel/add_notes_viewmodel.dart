@@ -41,10 +41,12 @@ abstract class _AddNotesViewModelBase with Store {
   }
 
   add() async {
-    if (titleController.text.length <= 2) {
+    if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
+      ShowSnackBar.showErrorSnackBar(_context, 'Tüm Boşlukları doldurunuz.');
+    } else if (titleController.text.length <= 2) {
       ShowSnackBar.showErrorSnackBar(_context, Constants.get.textConstant.title3Letters);
     } else if (descriptionController.text.length <= 9) {
-      ShowSnackBar.showErrorSnackBar(_context, Constants.get.textConstant.title3Letters);
+      ShowSnackBar.showErrorSnackBar(_context, Constants.get.textConstant.desc10Letters);
     } else {
       await Service.instance.addDocument(titleController.text, descriptionController.text);
       ShowSnackBar.showSuccessSnackBar(_context, Constants.get.textConstant.savedNotes);
@@ -54,7 +56,9 @@ abstract class _AddNotesViewModelBase with Store {
   }
 
   update(index) async {
-    if (titleController.text.length <= 2) {
+    if (titleController.text.isEmpty || descriptionController.text.isEmpty) {
+      ShowSnackBar.showErrorSnackBar(_context, 'Tüm Boşlukları doldurunuz.');
+    } else if (titleController.text.length <= 2) {
       ShowSnackBar.showErrorSnackBar(_context, Constants.get.textConstant.title3Letters);
     } else if (descriptionController.text.length <= 9) {
       ShowSnackBar.showErrorSnackBar(_context, Constants.get.textConstant.desc10Letters);

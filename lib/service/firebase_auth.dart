@@ -12,7 +12,6 @@ class FBAuth {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late BuildContext _context;
 
   Future<User?> createUser(String email, String password, BuildContext context) async {
     try {

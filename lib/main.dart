@@ -1,9 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mars_case/pages/splash_page/view/splash_view.dart';
-import 'package:mars_case/utils/navigation_manager/navigation_manager.dart';
-import 'package:mars_case/utils/navigation_manager/navigation_route.dart';
-import 'package:mars_case/utils/theme/theme.dart';
+
+import 'pages/splash_page/view/splash_view.dart';
+import 'utils/navigation_manager/navigation_manager.dart';
+import 'utils/navigation_manager/navigation_route.dart';
+import 'utils/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
