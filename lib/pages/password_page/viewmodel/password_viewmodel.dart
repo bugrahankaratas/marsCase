@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:mars_case/core/helper/loading_manager/loading_manager.dart';
 import 'package:mars_case/service/service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -35,6 +36,13 @@ abstract class _PasswordViewModelBase with Store {
   succesAndNavigate() {
     ShowSnackBar.showSuccessSnackBar(_context, Constants.get.textConstant.succes);
     NavigationManager.instance.navigateToPageClear(path: NavConstant.menuView);
+  }
+
+  signOut() async {
+    LoadingManager.instance.showLoading(_context);
+    ShowSnackBar.showSuccessSnackBar(_context, 'Oturum Başarıyla sonlandırıldı.');
+    await _auth.signOut();
+    NavigationManager.instance.navigateToPageClear(path: NavConstant.loginView);
   }
 
   fillBlanks() async {

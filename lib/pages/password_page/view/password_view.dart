@@ -52,6 +52,16 @@ class PasswordView extends StatelessWidget {
             hintText: Constants.get.textConstant.password),
         _fixSizedBox(context),
         _loginButton(context),
+        const SizedBox(height: 20),
+        CustomElevatedButton(
+            text: Constants.get.textConstant.signOut,
+            height: context.dynamicHeight(0.05),
+            width: context.dynamicWidth(0.4),
+            onTap: () {
+              _viewModel.passwordControllerListener();
+              _viewModel.signOut();
+            },
+            mainAxisAlignment: MainAxisAlignment.center),
       ],
     );
   }
